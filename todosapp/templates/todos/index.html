@@ -4,18 +4,19 @@
 {% block content %}
 
 <div class="border p-3 mt-4">
-    <form action="" method="POST">
-        <input type="text">
-        <input class="btn btn-block btn-success" type="submit" value="subit" >
+    <form method="POST">
+        {% csrf_token %}
+        {{ form }}
+        <input class="btn btn-block btn-success" type="submit" value="submit" >
     </form>
     <hr>
     {% for todo in todos %}
     <div class="border p-3">
         
-        <small>{{todo.date}}</small>
+        <small>{{ todo.date }}</small>
         <div class="row">
             <div class="col-md-8">
-                <p>{{todo.content}}</p>
+                <p>{{ todo.content }}</p>
             </div>
             <div class="col-md-4">
                 <a href="" class="btn btn-info btn-sm">Edit</a>
