@@ -7,6 +7,12 @@ from .forms import TaskForm
 
 def index(request):
     todos = Task.objects.all()
+    countTodos = todos.count()
+    
+    completedTodos = Task.objects.filter(complete=True)
+    countCompletedTodos = completedTodos.count()
+    
+    countUncompletedTodos = countTodos - countCompletedTodos
     
     if request.method == 'POST':
         form = TaskForm(request.POST)
@@ -19,5 +25,21 @@ def index(request):
     context =  {
         'todos' : todos,
         'form' : form,
+        'countTodos' : todos.count(),
+        'countCompletedTodos' : completedTodos.count(),
+        'countUncompletedTodos' : countUncompletedTodos
     }
     return render(request, 'todos/index.html', context)
+
+
+def update(request, pk):
+    todos = Task.objects.get(id=pk)
+    
+    if request.method == 'POST':
+        form = TaskForm(instance=todos)
+    else:
+        form = TaskForm(instance=todos)
+    context = {
+        'form': form
+    }
+    return render(request, 'todos/update.html', context)

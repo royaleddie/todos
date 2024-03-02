@@ -7,5 +7,10 @@ class Task(models.Model):
     date = models.DateTimeField(auto_now_add=True)
     complete =  models.BooleanField(default=False)
     
+    
+    class Meta:
+        ordering = ['-date']
+    
+    
     def __str__(self):
         return self.content
